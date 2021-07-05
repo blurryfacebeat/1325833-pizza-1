@@ -24,24 +24,19 @@
         <div class="content__wrapper">
           <h1 class="title title--big">Конструктор пиццы</h1>
 
-          <div class="content__dough">
+          <div class="content__dough" v-if="isDoughLength">
             <div class="sheet">
               <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
               <div class="sheet__content dough">
                 <label
-                  :class="[
-                    'dough__input',
-                    dough.name === 'Тонкое'
-                      ? 'dough__input--light'
-                      : 'dough__input--large'
-                  ]"
-                  v-for="(dough, index) in constructorData.dough"
+                  :class="['dough__input', `dough__input--${dough.type}`]"
+                  v-for="(dough, index) in doughData"
                   :key="dough.name"
                 >
                   <input
                     type="radio"
-                    name="dought"
+                    name="dough"
                     value="light"
                     class="visually-hidden"
                     :checked="index === 0"
@@ -53,21 +48,14 @@
             </div>
           </div>
 
-          <div class="content__diameter">
+          <div class="content__diameter" v-if="isSizesLength">
             <div class="sheet">
               <h2 class="title title--small sheet__title">Выберите размер</h2>
 
               <div class="sheet__content diameter">
                 <label
-                  :class="[
-                    'diameter__input',
-                    size.name === '23 см'
-                      ? 'diameter__input--small'
-                      : size.name === '32 см'
-                      ? 'diameter__input--normal'
-                      : 'diameter__input--big'
-                  ]"
-                  v-for="(size, index) in constructorData.sizes"
+                  :class="['diameter__input', `diameter__input--${size.type}`]"
+                  v-for="(size, index) in sizesData"
                   :key="size.name"
                 >
                   <input
@@ -90,38 +78,35 @@
               </h2>
 
               <div class="sheet__content ingridients">
-                <div class="ingridients__sauce">
+                <div class="ingridients__sauce" v-if="isSauceLength">
                   <p>Основной соус:</p>
 
                   <label
                     class="radio ingridients__input"
-                    v-for="(sauce, index) in constructorData.sauces"
+                    v-for="(sauce, index) in sauceData"
                     :key="sauce.name"
                   >
                     <input
                       type="radio"
                       name="sauce"
-                      :value="sauce.name === 'Томатный' ? 'tomato' : 'creamy'"
+                      :value="sauce.value"
                       :checked="index === 0"
                     />
                     <span>{{ sauce.name }}</span>
                   </label>
                 </div>
 
-                <div class="ingridients__filling">
+                <div class="ingridients__filling" v-if="isIngredientsLength">
                   <p>Начинка:</p>
 
                   <ul class="ingridients__list">
                     <li
                       class="ingridients__item"
-                      v-for="ingredient in constructorData.ingredients"
+                      v-for="ingredient in ingredientsData"
                       :key="ingredient.name"
                     >
                       <span
-                        :class="[
-                          'filling',
-                          setIngredientClass(ingredient.name)
-                        ]"
+                        :class="['filling', `filling--${ingredient.type}`]"
                         >{{ ingredient.name }}</span
                       >
 
@@ -191,59 +176,38 @@
 
 <script>
 import staticData from '@/static/pizza.json';
+import { normalizeDough } from '@/common/pizza_constructor/normalizeDough';
+import { normalizeSauce } from '@/common/pizza_constructor/normalizeSauce';
+import { normalizeIngredients } from '@/common/pizza_constructor/normalizeIngredients';
+import { normalizeSizes } from '@/common/pizza_constructor/normalizeSizes';
 
 export default {
   name: 'Index.vue',
-  mixins: [],
-  props: [],
-  components: {},
   data() {
     return {
-      constructorData: staticData
+      doughData: normalizeDough(staticData.dough),
+      sauceData: normalizeSauce(staticData.sauces),
+      ingredientsData: normalizeIngredients(staticData.ingredients),
+      sizesData: normalizeSizes(staticData.sizes)
     };
   },
-  mounted() {},
-  methods: {
-    setIngredientClass(type) {
-      let startStr = 'filling--';
-      let endStr =
-        type === 'Грибы'
-          ? 'mushrooms'
-          : type === 'Чеддер'
-          ? 'cheddar'
-          : type === 'Салями'
-          ? 'salami'
-          : type === 'Ветчина'
-          ? 'ham'
-          : type === 'Ананас'
-          ? 'ananas'
-          : type === 'Бекон'
-          ? 'bacon'
-          : type === 'Лук'
-          ? 'onion'
-          : type === 'Чили'
-          ? 'chile'
-          : type === 'Халапеньо'
-          ? 'jalapeno'
-          : type === 'Маслины'
-          ? 'olives'
-          : type === 'Томаты'
-          ? 'tomatoes'
-          : type === 'Лосоь'
-          ? 'salmon'
-          : type === 'Моцарелла'
-          ? 'mozzarella'
-          : type === 'Пармезан'
-          ? 'parmesan'
-          : type === 'Блю чиз'
-          ? 'blue_cheese'
-          : '';
-      return startStr + endStr;
+  computed: {
+    isDoughLength() {
+      return this.doughData.length;
+    },
+
+    isSauceLength() {
+      return this.sauceData.length;
+    },
+
+    isIngredientsLength() {
+      return this.ingredientsData.length;
+    },
+
+    isSizesLength() {
+      return this.sizesData.length;
     }
-  },
-  computed: {},
-  watch: {},
-  validations: {}
+  }
 };
 </script>
 
