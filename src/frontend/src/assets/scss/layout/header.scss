@@ -100,3 +100,19 @@
     color: $white;
   }
 }
+
+.header__login {
+  &::after {
+    display: inline-block;
+
+    width: 32px;
+    height: 32px;
+    margin-left: 8px;
+
+    content: '';
+    vertical-align: middle;
+
+    background: url('~@/assets/img/login.svg') no-repeat center;
+    background-size: auto 50%;
+  }
+}
