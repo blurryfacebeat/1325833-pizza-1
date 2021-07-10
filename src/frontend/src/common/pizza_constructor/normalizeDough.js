@@ -1,11 +1,13 @@
 const doughsTypes = [
   {
     name: 'Тонкое',
-    value: 'light'
+    value: 'light',
+    size: 'small'
   },
   {
     name: 'Толстое',
-    value: 'large'
+    value: 'large',
+    size: 'big'
   }
 ];
 
@@ -14,7 +16,8 @@ export const normalizeDough = (doughs) => {
     ? doughs.map((dough) => {
         return {
           ...dough,
-          type: doughsTypes.find((type) => type.name === dough.name).value
+          type: doughsTypes.find((type) => type.name === dough.name).value,
+          size: doughsTypes.find((type) => type.name === dough.name).size
         };
       })
     : [];
