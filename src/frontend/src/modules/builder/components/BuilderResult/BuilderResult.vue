@@ -8,11 +8,7 @@
 
     <BuilderResultView :pizzaResult="pizzaResult" :key="pizzaResult.price" />
 
-    <BuilderResultPrice
-      :price="pizzaResult.price"
-      :pizzaName="pizzaResult.name"
-      @orderPizza="orderPizza"
-    />
+    <BuilderResultPrice :pizzaResult="pizzaResult" @orderPizza="orderPizza" />
   </div>
 </template>
 

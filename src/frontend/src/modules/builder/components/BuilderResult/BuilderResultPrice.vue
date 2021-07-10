@@ -1,11 +1,11 @@
 <template>
   <div class="content__result">
-    <p>Итого: {{ price }} ₽</p>
+    <p>Итого: {{ pizzaResult.price }} ₽</p>
 
     <ButtonWidget
       content="Готовьте!"
       @clickHandler="orderPizza"
-      :disabled="isButtonDisabled"
+      :disabled="isNameEmpty || isIngredientsEmpty"
     />
   </div>
 </template>
@@ -17,16 +17,9 @@ export default {
   name: 'BuilderResultPrice',
   components: { ButtonWidget },
   props: {
-    price: {
-      type: Number,
+    pizzaResult: {
+      type: Object,
       required: true
-    },
-
-    pizzaName: {
-      type: String,
-      default: () => {
-        return '';
-      }
     }
   },
   methods: {
@@ -34,9 +27,19 @@ export default {
       this.$emit('orderPizza');
     }
   },
+  mounted() {},
   computed: {
-    isButtonDisabled() {
-      return !this.pizzaName ? true : false;
+    isNameEmpty() {
+      return !this.pizzaResult.name ? true : false;
+    },
+
+    isIngredientsEmpty() {
+      let isEmpty = true;
+      for (let key in this.pizzaResult.ingredients) {
+        console.log(key);
+        isEmpty = false;
+      }
+      return isEmpty;
     }
   }
 };

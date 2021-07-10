@@ -91,7 +91,7 @@ export default {
         dough: {},
         size: {},
         sauce: {},
-        ingredients: [],
+        ingredients: {},
         price: 0
       }
     };

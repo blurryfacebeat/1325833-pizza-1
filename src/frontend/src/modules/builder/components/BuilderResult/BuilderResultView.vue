@@ -9,9 +9,7 @@
             :class="['pizza__filling', `pizza__filling--${key.type}`]"
             v-for="key in pizzaResult.ingredients"
             :key="key.type"
-          >
-            {{ key.type }}
-          </div>
+          ></div>
         </div>
       </div>
     </div>
