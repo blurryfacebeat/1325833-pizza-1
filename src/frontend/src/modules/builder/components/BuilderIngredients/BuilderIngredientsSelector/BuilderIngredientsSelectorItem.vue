@@ -1,15 +1,17 @@
 <template>
   <li class="ingridients__item">
-    <span :class="['filling', `filling--${ingredient.type}`]">{{
-      ingredient.name
-    }}</span>
+    <AppDrag :transferData="ingredient">
+      <span :class="['filling', `filling--${ingredient.type}`]">{{
+        ingredient.name
+      }}</span>
+    </AppDrag>
 
     <div class="counter counter--orange ingridients__counter">
       <button
         type="button"
         class="counter__button counter__button--disabled counter__button--minus"
         :disabled="removeButtonDisabled"
-        @click="addIngredient"
+        @click="removeIngredient"
       >
         <span class="visually-hidden">Меньше</span>
       </button>
@@ -23,7 +25,7 @@
         type="button"
         class="counter__button counter__button--plus"
         :disabled="addButtonDisabled"
-        @click="removeIngredient"
+        @click="addIngredient"
       >
         <span class="visually-hidden">Больше</span>
       </button>
@@ -32,8 +34,11 @@
 </template>
 
 <script>
+import AppDrag from '@/common/components/AppDrag';
+
 export default {
   name: 'BuilderIngredientsSelectorItem',
+  components: { AppDrag },
   props: {
     ingredient: {
       type: Object,
@@ -45,12 +50,22 @@ export default {
       ingredientCounter: 0
     };
   },
+  mounted() {
+    this.$root.$on('setIngredientByDrop', (value) => {
+      if (value.type === this.ingredient.type) {
+        this.addIngredient();
+      }
+    });
+  },
+  beforeDestroy() {
+    this.$root.$off('setIngredientByDrop');
+  },
   methods: {
-    addIngredient() {
+    removeIngredient() {
       this.ingredientCounter--;
     },
 
-    removeIngredient() {
+    addIngredient() {
       this.ingredientCounter++;
     }
   },
