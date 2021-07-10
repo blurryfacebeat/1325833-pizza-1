@@ -3,7 +3,15 @@
     <div
       :class="`pizza pizza--foundation--${pizzaResult.dough.size}-${pizzaResult.sauce.value}`"
     >
-      <div class="pizza__wrapper"></div>
+      <div class="pizza__wrapper">
+        <div
+          :class="['pizza__filling', `pizza__filling--${key.type}`]"
+          v-for="key in pizzaResult.ingredients"
+          :key="key.type"
+        >
+          {{ key.type }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -16,7 +24,8 @@ export default {
       type: Object,
       required: true
     }
-  }
+  },
+  methods: {}
 };
 </script>
 

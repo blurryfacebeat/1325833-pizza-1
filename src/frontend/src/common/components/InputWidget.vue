@@ -5,7 +5,7 @@
       type="text"
       :placeholder="placeholder"
       :name="name"
-      v-model="inputValue"
+      v-model.trim="inputValue"
       @input="inputHandler"
     />
   </label>

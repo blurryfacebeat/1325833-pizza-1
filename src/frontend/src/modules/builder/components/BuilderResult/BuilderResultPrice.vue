@@ -2,7 +2,11 @@
   <div class="content__result">
     <p>Итого: {{ price }} ₽</p>
 
-    <ButtonWidget content="Готовьте!" @clickHandler="orderPizza" />
+    <ButtonWidget
+      content="Готовьте!"
+      @clickHandler="orderPizza"
+      :disabled="isButtonDisabled"
+    />
   </div>
 </template>
 
@@ -16,11 +20,23 @@ export default {
     price: {
       type: Number,
       required: true
+    },
+
+    pizzaName: {
+      type: String,
+      default: () => {
+        return '';
+      }
     }
   },
   methods: {
     orderPizza() {
       this.$emit('orderPizza');
+    }
+  },
+  computed: {
+    isButtonDisabled() {
+      return !this.pizzaName ? true : false;
     }
   }
 };

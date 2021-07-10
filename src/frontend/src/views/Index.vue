@@ -43,6 +43,7 @@
             :ingredientsData="ingredientsData"
             v-if="isSauceLength && isIngredientsLength"
             @setPizzaSauce="setPizzaSauce"
+            @changeIngredients="changeIngredients"
           />
 
           <BuilderResult
@@ -112,6 +113,24 @@ export default {
       this.pizzaResult.sauce = value;
     },
 
+    changeIngredients(value) {
+      this.pizzaResult.ingredients = value;
+      this.calculatePizzaCost();
+    },
+
+    calculatePizzaCost() {
+      let price = 0;
+      for (let key in this.pizzaResult.ingredients) {
+        price +=
+          this.pizzaResult.ingredients[key].price *
+          this.pizzaResult.ingredients[key].counter;
+      }
+      price +=
+        (this.pizzaResult.dough.price + this.pizzaResult.sauce.price) *
+        this.pizzaResult.size.multiplier;
+      this.pizzaResult.price = price;
+    },
+
     orderPizza() {
       console.log(this.pizzaResult);
     }
@@ -137,9 +156,7 @@ export default {
     pizzaResult: {
       deep: true,
       handler() {
-        this.pizzaResult.price =
-          (this.pizzaResult.dough.price + this.pizzaResult.sauce.price) *
-          this.pizzaResult.size.multiplier;
+        this.calculatePizzaCost();
       }
     }
   }

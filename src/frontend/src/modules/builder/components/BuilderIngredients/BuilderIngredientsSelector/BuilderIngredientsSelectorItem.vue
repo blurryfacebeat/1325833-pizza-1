@@ -73,6 +73,12 @@ export default {
       if (isNaN(this.ingredientCounter)) {
         this.ingredientCounter = 0;
       }
+      this.$emit('changeIngredients', {
+        type: this.ingredient.type,
+        price: this.ingredient.price,
+        name: this.ingredient.name,
+        counter: this.ingredientCounter
+      });
     }
   }
 };

@@ -8,7 +8,10 @@
         @setPizzaSauce="setPizzaSauce"
       />
 
-      <BuilderIngredientsSelector :ingredientsData="ingredientsData" />
+      <BuilderIngredientsSelector
+        :ingredientsData="ingredientsData"
+        @changeIngredients="changeIngredients"
+      />
     </div>
   </div>
 </template>
@@ -36,6 +39,10 @@ export default {
   methods: {
     setPizzaSauce(value) {
       this.$emit('setPizzaSauce', value);
+    },
+
+    changeIngredients(value) {
+      this.$emit('changeIngredients', value);
     }
   }
 };

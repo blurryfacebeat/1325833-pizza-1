@@ -8,6 +8,7 @@
           v-for="ingredient in ingredientsData"
           :key="ingredient.name"
           :ingredient="ingredient"
+          @changeIngredients="changeIngredients"
         />
       </ul>
     </div>
@@ -25,6 +26,20 @@ export default {
       type: Array,
       required: true,
       validator: (v) => v.length
+    }
+  },
+  data() {
+    return {
+      ingredients: {}
+    };
+  },
+  methods: {
+    changeIngredients(value) {
+      this.ingredients[value.name] = value;
+      if (this.ingredients[value.name].counter === 0) {
+        delete this.ingredients[value.name];
+      }
+      this.$emit('changeIngredients', this.ingredients);
     }
   }
 };
