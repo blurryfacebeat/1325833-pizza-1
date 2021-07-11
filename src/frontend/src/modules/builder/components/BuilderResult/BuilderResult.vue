@@ -8,7 +8,11 @@
 
     <BuilderResultView :pizzaResult="pizzaResult" :key="pizzaResult.price" />
 
-    <BuilderResultPrice :pizzaResult="pizzaResult" @orderPizza="orderPizza" />
+    <BuilderResultPrice
+      :pizzaResult="pizzaResult"
+      :key="pizzaResult.price + 1"
+      @orderPizza="orderPizza"
+    />
   </div>
 </template>
 

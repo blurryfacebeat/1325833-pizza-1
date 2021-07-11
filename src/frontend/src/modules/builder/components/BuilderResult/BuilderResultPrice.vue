@@ -36,7 +36,6 @@ export default {
     isIngredientsEmpty() {
       let isEmpty = true;
       for (let key in this.pizzaResult.ingredients) {
-        console.log(key);
         isEmpty = false;
       }
       return isEmpty;

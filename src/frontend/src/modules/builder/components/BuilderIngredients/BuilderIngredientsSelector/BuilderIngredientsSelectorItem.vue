@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { eventBus } from '@/main';
 import AppDrag from '@/common/components/AppDrag';
 
 export default {
@@ -51,14 +52,11 @@ export default {
     };
   },
   mounted() {
-    this.$root.$on('setIngredientByDrop', (value) => {
+    eventBus.$on('setIngredientByDrop', (value) => {
       if (value.type === this.ingredient.type) {
         this.addIngredient();
       }
     });
-  },
-  beforeDestroy() {
-    this.$root.$off('setIngredientByDrop');
   },
   methods: {
     removeIngredient() {
@@ -73,6 +71,7 @@ export default {
     removeButtonDisabled() {
       return this.ingredientCounter <= 0;
     },
+
     addButtonDisabled() {
       return this.ingredientCounter >= 3;
     }
