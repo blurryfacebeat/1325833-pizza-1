@@ -22,9 +22,7 @@ export default {
 
     checked: {
       type: Boolean,
-      default: () => {
-        return false;
-      }
+      default: false
     }
   },
   mounted() {

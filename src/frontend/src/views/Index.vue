@@ -98,24 +98,23 @@ export default {
   },
   methods: {
     setPizzaName(value) {
-      this.pizzaResult.name = value;
+      this.$set(this.pizzaResult, 'name', value);
     },
 
     setPizzaDough(value) {
-      this.pizzaResult.dough = value;
+      this.$set(this.pizzaResult, 'dough', value);
     },
 
     setPizzaSize(value) {
-      this.pizzaResult.size = value;
+      this.$set(this.pizzaResult, 'size', value);
     },
 
     setPizzaSauce(value) {
-      this.pizzaResult.sauce = value;
+      this.$set(this.pizzaResult, 'sauce', value);
     },
 
     changeIngredients(value) {
-      this.pizzaResult.ingredients = value;
-      this.calculatePizzaCost();
+      this.$set(this.pizzaResult, 'ingredients', value);
     },
 
     calculatePizzaCost() {
@@ -128,7 +127,7 @@ export default {
       price +=
         (this.pizzaResult.dough.price + this.pizzaResult.sauce.price) *
         this.pizzaResult.size.multiplier;
-      this.pizzaResult.price = price;
+      this.$set(this.pizzaResult, 'price', price);
     },
 
     orderPizza() {

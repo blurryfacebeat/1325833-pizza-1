@@ -35,9 +35,9 @@ export default {
   },
   methods: {
     changeIngredients(value) {
-      this.ingredients[value.name] = value;
+      this.$set(this.ingredients, value.name, value);
       if (this.ingredients[value.name].counter === 0) {
-        delete this.ingredients[value.name];
+        this.$delete(this.ingredients, value.name);
       }
       this.$emit('changeIngredients', this.ingredients);
     }

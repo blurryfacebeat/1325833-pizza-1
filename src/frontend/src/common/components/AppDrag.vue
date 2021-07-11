@@ -14,7 +14,8 @@ export default {
   name: 'AppDrag',
   props: {
     transferData: {
-      type: Object
+      type: Object,
+      required: true
     }
   },
   methods: {

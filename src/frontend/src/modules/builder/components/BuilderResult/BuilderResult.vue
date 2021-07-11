@@ -6,13 +6,9 @@
       @inputHandler="setPizzaName"
     />
 
-    <BuilderResultView :pizzaResult="pizzaResult" :key="pizzaResult.price" />
+    <BuilderResultView :pizzaResult="pizzaResult" />
 
-    <BuilderResultPrice
-      :pizzaResult="pizzaResult"
-      :key="pizzaResult.price + 1"
-      @orderPizza="orderPizza"
-    />
+    <BuilderResultPrice :pizzaResult="pizzaResult" @orderPizza="orderPizza" />
   </div>
 </template>
 

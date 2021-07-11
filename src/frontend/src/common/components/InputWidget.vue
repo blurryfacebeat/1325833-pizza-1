@@ -21,9 +21,7 @@ export default {
 
     placeholder: {
       type: String,
-      default: () => {
-        return 'Поле ввода';
-      }
+      default: 'Поле ввода'
     },
 
     name: {

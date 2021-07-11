@@ -3,8 +3,8 @@
     <p>Итого: {{ pizzaResult.price }} ₽</p>
 
     <ButtonWidget
+      @click="orderPizza"
       content="Готовьте!"
-      @clickHandler="orderPizza"
       :disabled="isNameEmpty || isIngredientsEmpty"
     />
   </div>

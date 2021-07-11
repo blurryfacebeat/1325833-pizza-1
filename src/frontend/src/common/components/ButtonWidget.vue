@@ -3,7 +3,7 @@
     type="button"
     :disabled="disabled"
     :class="['button', disabledClass]"
-    @click.stop.prevent="clickHandler"
+    @click.stop.prevent="click"
   >
     {{ content }}
   </button>
@@ -15,9 +15,7 @@ export default {
   props: {
     disabled: {
       type: Boolean,
-      default: () => {
-        return false;
-      }
+      default: false
     },
 
     anyClass: {
@@ -26,15 +24,13 @@ export default {
 
     content: {
       type: String,
-      default: () => {
-        return 'Кнопка';
-      }
+      default: 'Кнопка'
     }
   },
 
   methods: {
-    clickHandler() {
-      this.$emit('clickHandler');
+    click() {
+      this.$emit('click');
     }
   },
 
