@@ -14,7 +14,7 @@
 
 <script>
 import BuilderResultPrice from '@/modules/builder/components/BuilderResult/BuilderResultPrice';
-import BuilderResultView from '@/modules/builder/components/BuilderResult/BuilderResultView';
+import BuilderResultView from '@/modules/builder/components/BuilderResult/BuilderResultView/BuilderResultView';
 import InputWidget from '@/common/components/InputWidget';
 
 export default {
