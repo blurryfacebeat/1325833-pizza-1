@@ -1,6 +1,6 @@
 <template>
   <li class="ingridients__item">
-    <AppDrag :transferData="ingredient">
+    <AppDrag :transferData="ingredient" :isDraggable="isDraggable">
       <span :class="['filling', `filling--${ingredient.type}`]">{{
         ingredient.name
       }}</span>
@@ -74,6 +74,10 @@ export default {
 
     addButtonDisabled() {
       return this.ingredientCounter >= 3;
+    },
+
+    isDraggable() {
+      return this.ingredientCounter < 3;
     }
   },
   watch: {
