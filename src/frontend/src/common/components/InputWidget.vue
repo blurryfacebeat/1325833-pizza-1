@@ -6,7 +6,7 @@
       :placeholder="placeholder"
       :name="name"
       v-model.trim="inputValue"
-      @input="inputHandler"
+      @input="input"
     />
   </label>
 </template>
@@ -34,8 +34,8 @@ export default {
     };
   },
   methods: {
-    inputHandler() {
-      this.$emit('inputHandler', this.inputValue);
+    input() {
+      this.$emit('input', this.inputValue);
     }
   }
 };

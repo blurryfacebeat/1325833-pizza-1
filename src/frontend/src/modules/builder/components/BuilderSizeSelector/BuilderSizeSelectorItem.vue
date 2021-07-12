@@ -1,20 +1,20 @@
 <template>
-  <label :class="['diameter__input', `diameter__input--${size.type}`]">
-    <input
-      type="radio"
-      name="diameter"
-      value="small"
-      class="visually-hidden"
-      :checked="checked"
-      @input="setPizzaSize"
-    />
-    <span>{{ size.name }}</span>
-  </label>
+  <RadioWidget
+    :description="size.name"
+    :checked="checked"
+    @input="setPizzaSize"
+    inputClass="visually-hidden"
+    :labelClass="['diameter__input', `diameter__input--${size.type}`]"
+    name="diameter"
+  />
 </template>
 
 <script>
+import RadioWidget from '@/common/components/RadioWidget';
+
 export default {
   name: 'BuilderSizeSelectorItem',
+  components: { RadioWidget },
   props: {
     size: {
       type: Object,

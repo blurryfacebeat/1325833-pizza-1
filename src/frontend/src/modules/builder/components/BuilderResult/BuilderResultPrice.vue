@@ -1,6 +1,6 @@
 <template>
   <div class="content__result">
-    <p>Итого: {{ pizzaResult.price }} ₽</p>
+    <p>Итого: {{ pizzaCost }} ₽</p>
 
     <ButtonWidget
       @click="orderPizza"
@@ -27,7 +27,6 @@ export default {
       this.$emit('orderPizza');
     }
   },
-  mounted() {},
   computed: {
     isNameEmpty() {
       return !this.pizzaResult.name ? true : false;
@@ -39,6 +38,19 @@ export default {
         isEmpty = false;
       }
       return isEmpty;
+    },
+
+    pizzaCost() {
+      let cost = 0;
+      for (let key in this.pizzaResult.ingredients) {
+        cost +=
+          this.pizzaResult.ingredients[key].price *
+          this.pizzaResult.ingredients[key].counter;
+      }
+      cost +=
+        (this.pizzaResult.dough.price + this.pizzaResult.sauce.price) *
+        this.pizzaResult.size.multiplier;
+      return cost;
     }
   }
 };

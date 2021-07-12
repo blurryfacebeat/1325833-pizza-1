@@ -3,7 +3,7 @@
     <InputWidget
       placeholder="Введите название пиццы"
       name="pizza_name"
-      @inputHandler="setPizzaName"
+      @input="setPizzaName"
     />
 
     <BuilderResultView :pizzaResult="pizzaResult" />

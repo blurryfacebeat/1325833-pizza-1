@@ -1,21 +1,21 @@
 <template>
-  <label :class="['dough__input', `dough__input--${dough.type}`]">
-    <input
-      type="radio"
-      name="dough"
-      value="light"
-      class="visually-hidden"
-      @input="setPizzaDough"
-      :checked="checked"
-    />
-    <b>{{ dough.name }}</b>
-    <span>{{ dough.description }}</span>
-  </label>
+  <RadioWidget
+    :labelClass="['dough__input', `dough__input--${dough.type}`]"
+    inputClass="visually-hidden"
+    name="dough"
+    :checked="checked"
+    :label="dough.name"
+    :description="dough.description"
+    @input="setPizzaDough"
+  />
 </template>
 
 <script>
+import RadioWidget from '@/common/components/RadioWidget';
+
 export default {
   name: 'BuilderDoughSelectorItem',
+  components: { RadioWidget },
   props: {
     dough: {
       type: Object,

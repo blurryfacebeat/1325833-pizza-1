@@ -1,19 +1,18 @@
 <template>
-  <label class="radio ingridients__input">
-    <input
-      type="radio"
-      name="sauce"
-      :value="sauce.value"
-      :checked="checked"
-      @input="setPizzaSauce"
-    />
-    <span>{{ sauce.name }}</span>
-  </label>
+  <RadioWidget
+    labelClass="radio ingridients__input"
+    :checked="checked"
+    name="sauce"
+    @input="setPizzaSauce"
+    :description="sauce.name"
+  />
 </template>
 
 <script>
+import RadioWidget from '@/common/components/RadioWidget';
 export default {
   name: 'BuilderSauceSelectorItem',
+  components: { RadioWidget },
   props: {
     sauce: {
       type: Object,

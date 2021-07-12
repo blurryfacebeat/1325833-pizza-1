@@ -91,8 +91,7 @@ export default {
         dough: {},
         size: {},
         sauce: {},
-        ingredients: {},
-        price: 0
+        ingredients: {}
       }
     };
   },
@@ -117,19 +116,6 @@ export default {
       this.$set(this.pizzaResult, 'ingredients', value);
     },
 
-    calculatePizzaCost() {
-      let price = 0;
-      for (let key in this.pizzaResult.ingredients) {
-        price +=
-          this.pizzaResult.ingredients[key].price *
-          this.pizzaResult.ingredients[key].counter;
-      }
-      price +=
-        (this.pizzaResult.dough.price + this.pizzaResult.sauce.price) *
-        this.pizzaResult.size.multiplier;
-      this.$set(this.pizzaResult, 'price', price);
-    },
-
     orderPizza() {
       console.log(this.pizzaResult);
     }
@@ -149,14 +135,6 @@ export default {
 
     isSizesLength() {
       return this.sizesData.length;
-    }
-  },
-  watch: {
-    pizzaResult: {
-      deep: true,
-      handler() {
-        this.calculatePizzaCost();
-      }
     }
   }
 };
