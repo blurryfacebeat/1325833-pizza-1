@@ -40,7 +40,6 @@ export default {
       let ingredientsArray = [];
       for (let key in this.pizzaResult.ingredients) {
         for (let i = 0; i < this.pizzaResult.ingredients[key].counter; i++) {
-          this.$set(this.pizzaResult.ingredients[key]);
           ingredientsArray.push({
             ...this.pizzaResult.ingredients[key],
             counter: i + 1
