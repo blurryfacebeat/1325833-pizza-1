@@ -1,59 +1,36 @@
 <template>
   <div>
-    <AppLayout>
-      <template #header>
-        <div class="header__logo">
-          <a href="index.html" class="logo">
-            <img
-              src="@/assets/img/logo.svg"
-              alt="V!U!E! Pizza logo"
-              width="90"
-              height="40"
-            />
-          </a>
-        </div>
-        <div class="header__cart">
-          <a href="cart.html">0 ₽</a>
-        </div>
-        <div class="header__user">
-          <a href="#" class="header__login"><span>Войти</span></a>
-        </div>
-      </template>
-    </AppLayout>
+    <form action="#" method="post">
+      <div class="content__wrapper">
+        <h1 class="title title--big">Конструктор пиццы</h1>
 
-    <main class="content">
-      <form action="#" method="post">
-        <div class="content__wrapper">
-          <h1 class="title title--big">Конструктор пиццы</h1>
+        <BuilderDoughSelector
+          :doughData="doughData"
+          v-if="isDoughLength"
+          @setPizzaDough="setPizzaDough"
+        />
 
-          <BuilderDoughSelector
-            :doughData="doughData"
-            v-if="isDoughLength"
-            @setPizzaDough="setPizzaDough"
-          />
+        <BuilderSizeSelector
+          :sizesData="sizesData"
+          v-if="isSizesLength"
+          @setPizzaSize="setPizzaSize"
+        />
 
-          <BuilderSizeSelector
-            :sizesData="sizesData"
-            v-if="isSizesLength"
-            @setPizzaSize="setPizzaSize"
-          />
+        <BuilderIngredients
+          :sauceData="sauceData"
+          :ingredientsData="ingredientsData"
+          v-if="isSauceLength && isIngredientsLength"
+          @setPizzaSauce="setPizzaSauce"
+          @changeIngredients="changeIngredients"
+        />
 
-          <BuilderIngredients
-            :sauceData="sauceData"
-            :ingredientsData="ingredientsData"
-            v-if="isSauceLength && isIngredientsLength"
-            @setPizzaSauce="setPizzaSauce"
-            @changeIngredients="changeIngredients"
-          />
-
-          <BuilderResult
-            @orderPizza="orderPizza"
-            @setPizzaName="setPizzaName"
-            :pizzaResult="pizzaResult"
-          />
-        </div>
-      </form>
-    </main>
+        <BuilderResult
+          @orderPizza="orderPizza"
+          @setPizzaName="setPizzaName"
+          :pizzaResult="pizzaResult"
+        />
+      </div>
+    </form>
   </div>
 </template>
 
@@ -65,20 +42,18 @@ import {
   normalizeSauce,
   normalizeIngredients
 } from '@/common';
-import AppLayout from '@/layouts/AppLayout';
 import BuilderDoughSelector from '@/modules/builder/components/BuilderDoughSelector/BuilderDoughSelector';
 import BuilderSizeSelector from '@/modules/builder/components/BuilderSizeSelector/BuilderSizeSelector';
 import BuilderIngredients from '@/modules/builder/components/BuilderIngredients/BuilderIngredients';
 import BuilderResult from '@/modules/builder/components/BuilderResult/BuilderResult';
 
 export default {
-  name: 'Index.vue',
+  name: 'Index',
   components: {
     BuilderResult,
     BuilderIngredients,
     BuilderSizeSelector,
-    BuilderDoughSelector,
-    AppLayout
+    BuilderDoughSelector
   },
   data() {
     return {
