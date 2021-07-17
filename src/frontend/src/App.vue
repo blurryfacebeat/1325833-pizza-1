@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <Index />
+    <component :is="layout">
+      <router-view />
+    </component>
   </div>
 </template>
 
@@ -9,7 +11,13 @@ import Index from '@/views/Index.vue';
 
 export default {
   name: 'App',
-  components: { Index }
+  components: { Index },
+  computed: {
+    layout() {
+      const layout = this.$route.meta.layout || 'DefaultLayout';
+      return () => import(`@/layouts/${layout}.vue`);
+    }
+  }
 };
 </script>
 
