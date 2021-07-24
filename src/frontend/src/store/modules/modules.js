@@ -1,11 +1,11 @@
-import Builder from '@/store/modules/builder.store';
-import Cart from '@/store/modules/cart.store';
-import Orders from '@/store/modules/orders.store';
-import Auth from '@/store/modules/auth.store';
+import builder from '@/store/modules/builder.store';
+import cart from '@/store/modules/cart.store';
+import orders from '@/store/modules/orders.store';
+import auth from '@/store/modules/auth.store';
 
 export default {
-  Builder,
-  Cart,
-  Orders,
-  Auth
+  builder,
+  cart,
+  orders,
+  auth
 };

@@ -5,11 +5,10 @@
 
       <div class="sheet__content dough">
         <BuilderDoughSelectorItem
-          v-for="(dough, index) in doughData"
+          v-for="(dough, index) in doughList"
           :key="dough.name"
           :dough="dough"
           :checked="index === 0"
-          @setPizzaDough="setPizzaDough"
         />
       </div>
     </div>
@@ -21,16 +20,9 @@ import BuilderDoughSelectorItem from '@/modules/builder/components/BuilderDoughS
 export default {
   name: 'BuilderDoughSelector',
   components: { BuilderDoughSelectorItem },
-  props: {
-    doughData: {
-      type: Array,
-      required: true,
-      validator: (v) => v.length
-    }
-  },
-  methods: {
-    setPizzaDough(value) {
-      this.$emit('setPizzaDough', value);
+  computed: {
+    doughList() {
+      return this.$store.state.builder.doughData;
     }
   }
 };

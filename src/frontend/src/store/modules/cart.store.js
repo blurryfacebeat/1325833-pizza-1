@@ -1,3 +1,7 @@
 export default {
-  namespaced: true
+  namespaced: true,
+  state: {
+    pizzas: [],
+    orderFullPrice: 0
+  }
 };

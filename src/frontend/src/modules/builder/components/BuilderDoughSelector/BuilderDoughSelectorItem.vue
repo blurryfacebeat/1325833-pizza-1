@@ -6,7 +6,7 @@
     :checked="checked"
     :label="dough.name"
     :description="dough.description"
-    @input="setPizzaDough"
+    @input="setPizzaDough(dough)"
   />
 </template>
 
@@ -28,12 +28,13 @@ export default {
   },
   mounted() {
     if (this.checked) {
-      this.setPizzaDough();
+      this.setPizzaDough(this.dough);
     }
   },
   methods: {
-    setPizzaDough() {
-      this.$emit('setPizzaDough', this.dough);
+    setPizzaDough(value) {
+      this.$store.commit('builder/SET_PIZZA_DOUGH', value);
+      this.$store.dispatch('builder/SET_PIZZA_COST');
     }
   }
 };

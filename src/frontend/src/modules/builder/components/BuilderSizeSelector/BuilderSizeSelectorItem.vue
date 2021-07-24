@@ -2,7 +2,7 @@
   <RadioWidget
     :description="size.name"
     :checked="checked"
-    @input="setPizzaSize"
+    @input="setPizzaSize(size)"
     inputClass="visually-hidden"
     :labelClass="['diameter__input', `diameter__input--${size.type}`]"
     name="diameter"
@@ -28,12 +28,13 @@ export default {
   },
   mounted() {
     if (this.checked) {
-      this.setPizzaSize();
+      this.setPizzaSize(this.size);
     }
   },
   methods: {
-    setPizzaSize() {
-      this.$emit('setPizzaSize', this.size);
+    setPizzaSize(value) {
+      this.$store.commit('builder/SET_PIZZA_SIZE', value);
+      this.$store.dispatch('builder/SET_PIZZA_COST');
     }
   }
 };

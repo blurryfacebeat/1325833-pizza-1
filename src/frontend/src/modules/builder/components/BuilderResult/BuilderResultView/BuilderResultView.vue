@@ -24,18 +24,15 @@ import BuilderResultFillingItem from '@/modules/builder/components/BuilderResult
 export default {
   name: 'BuilderResultView',
   components: { BuilderResultFillingItem, AppDrop },
-  props: {
-    pizzaResult: {
-      type: Object,
-      required: true
-    }
-  },
   methods: {
     setIngredientByDrop(value) {
       eventBus.$emit('setIngredientByDrop', JSON.parse(value));
     }
   },
   computed: {
+    pizzaResult() {
+      return this.$store.state.builder.pizzaResult;
+    },
     ingredientsArray() {
       let ingredientsArray = [];
       for (let key in this.pizzaResult.ingredients) {

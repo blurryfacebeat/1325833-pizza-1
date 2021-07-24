@@ -4,31 +4,13 @@
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
 
-        <BuilderDoughSelector
-          :doughData="doughData"
-          v-if="isDoughLength"
-          @setPizzaDough="setPizzaDough"
-        />
+        <BuilderDoughSelector v-if="doughData.length" />
 
-        <BuilderSizeSelector
-          :sizesData="sizesData"
-          v-if="isSizesLength"
-          @setPizzaSize="setPizzaSize"
-        />
+        <BuilderSizeSelector v-if="sizesData.length" />
 
-        <BuilderIngredients
-          :sauceData="sauceData"
-          :ingredientsData="ingredientsData"
-          v-if="isSauceLength && isIngredientsLength"
-          @setPizzaSauce="setPizzaSauce"
-          @changeIngredients="changeIngredients"
-        />
+        <BuilderIngredients v-if="sauceData.length && ingredientsData.length" />
 
-        <BuilderResult
-          @orderPizza="orderPizza"
-          @setPizzaName="setPizzaName"
-          :pizzaResult="pizzaResult"
-        />
+        <BuilderResult @orderPizza="orderPizza" />
       </div>
     </form>
     <ThankfulModal v-if="showThankfulModal" @closeModal="closeThankfulModal" />
@@ -36,18 +18,16 @@
 </template>
 
 <script>
-import staticData from '@/static/pizza.json';
-import {
-  normalizeDough,
-  normalizeSizes,
-  normalizeSauce,
-  normalizeIngredients
-} from '@/common';
+import { mapState } from 'vuex';
+
 import BuilderDoughSelector from '@/modules/builder/components/BuilderDoughSelector/BuilderDoughSelector';
 import BuilderSizeSelector from '@/modules/builder/components/BuilderSizeSelector/BuilderSizeSelector';
 import BuilderIngredients from '@/modules/builder/components/BuilderIngredients/BuilderIngredients';
 import BuilderResult from '@/modules/builder/components/BuilderResult/BuilderResult';
-import ThankfulModal from '@/modules/builder/modals/ThankfulModal';
+const ThankfulModal = () =>
+  import(
+    /* webpackChunkName: 'ThankfulModal' */ '@/modules/builder/modals/ThankfulModal'
+  );
 
 export default {
   name: 'Index',
@@ -60,42 +40,12 @@ export default {
   },
   data() {
     return {
-      showThankfulModal: false,
-      doughData: normalizeDough(staticData.dough),
-      sauceData: normalizeSauce(staticData.sauces),
-      ingredientsData: normalizeIngredients(staticData.ingredients),
-      sizesData: normalizeSizes(staticData.sizes),
-      pizzaResult: {
-        name: '',
-        dough: {},
-        size: {},
-        sauce: {},
-        ingredients: {}
-      }
+      showThankfulModal: false
     };
   },
   methods: {
     closeThankfulModal() {
       this.showThankfulModal = false;
-    },
-    setPizzaName(value) {
-      this.$set(this.pizzaResult, 'name', value);
-    },
-
-    setPizzaDough(value) {
-      this.$set(this.pizzaResult, 'dough', value);
-    },
-
-    setPizzaSize(value) {
-      this.$set(this.pizzaResult, 'size', value);
-    },
-
-    setPizzaSauce(value) {
-      this.$set(this.pizzaResult, 'sauce', value);
-    },
-
-    changeIngredients(value) {
-      this.$set(this.pizzaResult, 'ingredients', value);
     },
 
     orderPizza() {
@@ -104,21 +54,12 @@ export default {
     }
   },
   computed: {
-    isDoughLength() {
-      return this.doughData.length;
-    },
-
-    isSauceLength() {
-      return this.sauceData.length;
-    },
-
-    isIngredientsLength() {
-      return this.ingredientsData.length;
-    },
-
-    isSizesLength() {
-      return this.sizesData.length;
-    }
+    ...mapState('builder', [
+      'doughData',
+      'sauceData',
+      'ingredientsData',
+      'sizesData'
+    ])
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="content__result">
-    <p>Итого: {{ pizzaCost }} ₽</p>
+    <p>Итого: {{ pizzaResult.cost }} ₽</p>
 
     <ButtonWidget
       @click="orderPizza"
@@ -16,20 +16,18 @@ import ButtonWidget from '@/common/components/ButtonWidget';
 export default {
   name: 'BuilderResultPrice',
   components: { ButtonWidget },
-  props: {
-    pizzaResult: {
-      type: Object,
-      required: true
-    }
-  },
   methods: {
     orderPizza() {
       this.$emit('orderPizza');
     }
   },
   computed: {
+    pizzaResult() {
+      return this.$store.state.builder.pizzaResult;
+    },
+
     isNameEmpty() {
-      return !this.pizzaResult.name ? true : false;
+      return !this.pizzaResult.name ?? true;
     },
 
     isIngredientsEmpty() {
@@ -38,19 +36,6 @@ export default {
         isEmpty = false;
       }
       return isEmpty;
-    },
-
-    pizzaCost() {
-      let cost = 0;
-      for (let key in this.pizzaResult.ingredients) {
-        cost +=
-          this.pizzaResult.ingredients[key].price *
-          this.pizzaResult.ingredients[key].counter;
-      }
-      cost +=
-        (this.pizzaResult.dough.price + this.pizzaResult.sauce.price) *
-        this.pizzaResult.size.multiplier;
-      return cost;
     }
   }
 };

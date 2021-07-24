@@ -5,7 +5,7 @@
 
       <ul class="ingridients__list">
         <BuilderIngredientsSelectorItem
-          v-for="ingredient in ingredientsData"
+          v-for="ingredient in ingredientsList"
           :key="ingredient.name"
           :ingredient="ingredient"
           @changeIngredients="changeIngredients"
@@ -21,13 +21,6 @@ import BuilderIngredientsSelectorItem from '@/modules/builder/components/Builder
 export default {
   name: 'BuilderIngredientsSelector',
   components: { BuilderIngredientsSelectorItem },
-  props: {
-    ingredientsData: {
-      type: Array,
-      required: true,
-      validator: (v) => v.length
-    }
-  },
   data() {
     return {
       ingredients: {}
@@ -39,7 +32,13 @@ export default {
       if (this.ingredients[value.name].counter === 0) {
         this.$delete(this.ingredients, value.name);
       }
-      this.$emit('changeIngredients', this.ingredients);
+      this.$store.commit('builder/SET_PIZZA_INGREDIENTS', this.ingredients);
+      this.$store.dispatch('builder/SET_PIZZA_COST');
+    }
+  },
+  computed: {
+    ingredientsList() {
+      return this.$store.state.builder.ingredientsData;
     }
   }
 };

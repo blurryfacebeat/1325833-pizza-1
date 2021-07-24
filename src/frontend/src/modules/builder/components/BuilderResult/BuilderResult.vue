@@ -6,9 +6,9 @@
       @input="setPizzaName"
     />
 
-    <BuilderResultView :pizzaResult="pizzaResult" />
+    <BuilderResultView />
 
-    <BuilderResultPrice :pizzaResult="pizzaResult" @orderPizza="orderPizza" />
+    <BuilderResultPrice @orderPizza="orderPizza" />
   </div>
 </template>
 
@@ -20,19 +20,13 @@ import InputWidget from '@/common/components/InputWidget';
 export default {
   name: 'BuilderResult',
   components: { InputWidget, BuilderResultView, BuilderResultPrice },
-  props: {
-    pizzaResult: {
-      type: Object,
-      required: true
-    }
-  },
   methods: {
     orderPizza() {
       this.$emit('orderPizza');
     },
 
     setPizzaName(value) {
-      this.$emit('setPizzaName', value);
+      this.$store.commit('builder/SET_PIZZA_NAME', value);
     }
   }
 };

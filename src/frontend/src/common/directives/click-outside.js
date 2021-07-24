@@ -1,18 +1,18 @@
 import Vue from 'vue';
 
-Vue.directive('clickOutside', {
+Vue.directive('click-outside', {
   bind(el, binding, vnode) {
-    el.clickOnElement = function (event) {
+    el.__VueClickOutside__ = function (event) {
       if (!(el === event.target || el.contains(event.target))) {
         binding.expression
           ? vnode.context[binding.expression](event)
-          : console.log('Передайте функцию в директиву');
+          : console.warn('Вы не передали функцию в директиву!');
       }
     };
-    document.addEventListener('click', el.clickOnElement);
+    document.addEventListener('click', el.__VueClickOutside__);
   },
 
   unbind(el) {
-    document.removeEventListener('click', el.clickOnElement);
+    document.removeEventListener('click', el.__VueClickOutside__);
   }
 });
