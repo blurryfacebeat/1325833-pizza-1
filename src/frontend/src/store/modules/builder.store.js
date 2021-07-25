@@ -28,7 +28,8 @@ export default {
       size: {},
       sauce: {},
       ingredients: {},
-      cost: 0
+      cost: 0,
+      quantity: 1
     }
   },
 
