@@ -9,7 +9,6 @@
       />
       <span>{{ product.name }}</span>
     </p>
-    <!--Нормально блять перебрать дополнительные товары, курс хуета полная, HTML Academy долбоебы-->
     <div class="additional-list__wrapper">
       <div class="counter additional-list__counter">
         <button type="button" class="counter__button counter__button--minus">
