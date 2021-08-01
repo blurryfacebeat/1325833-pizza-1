@@ -6,30 +6,27 @@
         class="product__img"
         width="56"
         height="56"
-        alt="Капричоза"
+        alt="pizza_name"
       />
       <div class="product__text">
-        <h2>Капричоза</h2>
+        <h2>{{ pizza.name }}</h2>
         <ul>
-          <li>30 см, на тонком тесте</li>
-          <li>Соус: томатный</li>
-          <li>Начинка: грибы, лук, ветчина, пармезан, ананас</li>
+          <li>{{ `${pizza.size.name}, ${doughTypeToText}` }}</li>
+          <li>Соус: {{ pizza.sauce.name.toLowerCase() }}</li>
+          <li>
+            Начинка:
+            <span
+              class="ingredient-item"
+              v-for="ingredient in pizzaIngredientsToText"
+              :key="ingredient"
+              >{{ ingredient }}</span
+            >
+          </li>
         </ul>
       </div>
     </div>
 
-    <div class="counter cart-list__counter">
-      <button type="button" class="counter__button counter__button--minus">
-        <span class="visually-hidden">Меньше</span>
-      </button>
-      <input type="text" name="counter" class="counter__input" value="1" />
-      <button
-        type="button"
-        class="counter__button counter__button--plus counter__button--orange"
-      >
-        <span class="visually-hidden">Больше</span>
-      </button>
-    </div>
+    <CounterWidget :count="1" />
 
     <div class="cart-list__price">
       <b>782 ₽</b>
@@ -42,9 +39,42 @@
 </template>
 
 <script>
+import CounterWidget from '@/common/components/CounterWidget';
 export default {
-  name: 'PizzaItem'
+  name: 'PizzaItem',
+  components: { CounterWidget },
+  props: {
+    pizza: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    doughTypeToText() {
+      return this.pizza.dough.type === 'light'
+        ? 'на тонком тесте'
+        : 'на толстом тесте';
+    },
+
+    pizzaIngredientsToText() {
+      let arr = [];
+      for (let key in this.pizza.ingredients) {
+        arr.push(this.pizza.ingredients[key].name.toLowerCase());
+      }
+      return arr;
+    }
+  }
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.ingredient-item {
+  &:not(:last-child) {
+    margin-right: 3px;
+
+    &::after {
+      content: ',';
+    }
+  }
+}
+</style>
