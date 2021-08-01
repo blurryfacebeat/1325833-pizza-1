@@ -13,7 +13,7 @@
     </div>
 
     <div class="footer__submit">
-      <ButtonWidget content="Оформить заказ" />
+      <ButtonWidget content="Оформить заказ" @click="openThankfulModal" />
     </div>
   </section>
 </template>
@@ -23,6 +23,11 @@ import ButtonWidget from '@/common/components/ButtonWidget';
 export default {
   name: 'CartFooter',
   components: { ButtonWidget },
+  methods: {
+    openThankfulModal() {
+      this.$emit('openThankfulModal');
+    }
+  },
   computed: {
     cost() {
       return this.$store.state.cart.orderFullCost;

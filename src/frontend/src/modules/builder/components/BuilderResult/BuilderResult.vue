@@ -8,7 +8,7 @@
 
     <BuilderResultView />
 
-    <BuilderResultPrice @orderPizza="orderPizza" />
+    <BuilderResultPrice />
   </div>
 </template>
 
@@ -21,10 +21,6 @@ export default {
   name: 'BuilderResult',
   components: { InputWidget, BuilderResultView, BuilderResultPrice },
   methods: {
-    orderPizza() {
-      this.$emit('orderPizza');
-    },
-
     setPizzaName(value) {
       this.$store.commit('builder/SET_PIZZA_NAME', value);
     }

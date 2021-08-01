@@ -1,20 +1,28 @@
 import Vue from 'vue';
 
-import additionalItemsList from '@/static/misc.json';
 import {
   ADD_PIZZA_IN_CART,
-  CALCULATE_ORDER_COST
+  UPDATE_ADDITIONAL_COUNTER
 } from '@/store/mutation-types';
+import { normalAdditionalItemsList } from '@/modules/cart/helpers/normalizeAdditionalItems';
 
 export default {
   namespaced: true,
   state: {
     pizzas: [],
     orderFullCost: 0,
-    additionalItems: additionalItemsList
+    additionalItems: normalAdditionalItemsList()
   },
   mutations: {
-    [ADD_PIZZA_IN_CART](state, value) {}
+    [ADD_PIZZA_IN_CART](state, value) {
+      state.pizzas.push(value);
+    },
+    [UPDATE_ADDITIONAL_COUNTER](state, { type, value }) {
+      const requiredElement = state.additionalItems.find(
+        (item) => item.type === type
+      );
+      Vue.set(requiredElement, 'count', value);
+    }
   },
   actions: {}
 };

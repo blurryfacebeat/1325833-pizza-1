@@ -1,9 +1,9 @@
 <template>
   <div class="content__result">
-    <p>Итого: {{ pizzaResult.cost }} ₽</p>
+    <p>Итого: {{ pizzaCost }} ₽</p>
 
     <ButtonWidget
-      @click="orderPizza"
+      @click="addPizzaToCart"
       content="Готовьте!"
       :disabled="isNameEmpty || isIngredientsEmpty"
     />
@@ -17,11 +17,15 @@ export default {
   name: 'BuilderResultPrice',
   components: { ButtonWidget },
   methods: {
-    orderPizza() {
-      this.$emit('orderPizza');
+    addPizzaToCart() {
+      this.$store.commit('cart/ADD_PIZZA_IN_CART', this.pizzaResult);
     }
   },
   computed: {
+    pizzaCost() {
+      return this.$store.getters['builder/pizzaCost'];
+    },
+
     pizzaResult() {
       return this.$store.state.builder.pizzaResult;
     },

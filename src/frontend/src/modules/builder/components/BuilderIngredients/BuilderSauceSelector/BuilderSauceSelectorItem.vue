@@ -32,7 +32,6 @@ export default {
   methods: {
     setPizzaSauce(value) {
       this.$store.commit('builder/SET_PIZZA_SAUCE', value);
-      this.$store.dispatch('builder/SET_PIZZA_COST');
     }
   }
 };

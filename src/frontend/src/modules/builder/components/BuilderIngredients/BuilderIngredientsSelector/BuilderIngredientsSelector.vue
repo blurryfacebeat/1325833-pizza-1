@@ -33,7 +33,6 @@ export default {
         this.$delete(this.ingredients, value.name);
       }
       this.$store.commit('builder/SET_PIZZA_INGREDIENTS', this.ingredients);
-      this.$store.dispatch('builder/SET_PIZZA_COST');
     }
   },
   computed: {

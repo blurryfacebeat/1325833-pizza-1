@@ -12,6 +12,7 @@
 
 <script>
 import PizzaItem from '@/modules/cart/components/PizzaItem';
+
 export default {
   name: 'PizzasContainer',
   components: { PizzaItem },

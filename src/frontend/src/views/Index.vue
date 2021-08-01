@@ -10,10 +10,10 @@
 
         <BuilderIngredients v-if="sauceData.length && ingredientsData.length" />
 
-        <BuilderResult @orderPizza="orderPizza" />
+        <BuilderResult />
       </div>
     </form>
-    <ThankfulModal v-if="showThankfulModal" @closeModal="closeThankfulModal" />
+    <router-view />
   </div>
 </template>
 
@@ -24,30 +24,16 @@ import BuilderDoughSelector from '@/modules/builder/components/BuilderDoughSelec
 import BuilderSizeSelector from '@/modules/builder/components/BuilderSizeSelector/BuilderSizeSelector';
 import BuilderIngredients from '@/modules/builder/components/BuilderIngredients/BuilderIngredients';
 import BuilderResult from '@/modules/builder/components/BuilderResult/BuilderResult';
-const ThankfulModal = () =>
-  import(
-    /* webpackChunkName: 'ThankfulModal' */ '@/modules/builder/modals/ThankfulModal'
-  );
 
 export default {
   name: 'Index',
   components: {
-    ThankfulModal,
     BuilderResult,
     BuilderIngredients,
     BuilderSizeSelector,
     BuilderDoughSelector
   },
-  data() {
-    return {
-      showThankfulModal: false
-    };
-  },
   methods: {
-    closeThankfulModal() {
-      this.showThankfulModal = false;
-    },
-
     orderPizza() {
       this.showThankfulModal = true;
       console.log(this.pizzaResult);

@@ -27,9 +27,7 @@ export default {
       dough: {},
       size: {},
       sauce: {},
-      ingredients: {},
-      cost: 0,
-      quantity: 1
+      ingredients: {}
     }
   },
 
@@ -59,8 +57,8 @@ export default {
     }
   },
 
-  actions: {
-    [SET_PIZZA_COST]({ state, commit }) {
+  getters: {
+    pizzaCost: (state) => {
       let cost = 0;
       for (let key in state.pizzaResult.ingredients) {
         cost +=
@@ -70,7 +68,7 @@ export default {
       cost +=
         (state.pizzaResult.dough.price + state.pizzaResult.sauce.price) *
         state.pizzaResult.size.multiplier;
-      commit(SET_PIZZA_COST, cost);
+      return cost;
     }
   }
 };
