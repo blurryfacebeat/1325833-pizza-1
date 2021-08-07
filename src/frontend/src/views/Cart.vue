@@ -24,7 +24,7 @@
 <script>
 const ThankfulModal = () =>
   import(
-    /* webpackChunkName: 'ThankfulModal' */ '@/modules/builder/modals/ThankfulModal'
+    /* webpackChunkName: 'ThankfulModal' */ '@/modules/cart/modals/ThankfulModal'
   );
 import PizzasContainer from '@/modules/cart/components/PizzasContainer';
 import AdditionalItemsContainer from '@/modules/cart/additional-items/AdditionalItemsContainer';

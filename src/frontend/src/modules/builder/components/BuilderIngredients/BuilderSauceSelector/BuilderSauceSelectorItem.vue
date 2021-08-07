@@ -33,7 +33,8 @@ export default {
     setPizzaSauce(value) {
       this.$store.commit('builder/SET_PIZZA_SAUCE', value);
     }
-  }
+  },
+  computed: {}
 };
 </script>
 

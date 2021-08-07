@@ -1,7 +1,14 @@
 <template>
   <li class="additional-list__item sheet">
     <p class="additional-list__description">
-      <img :src="product.image" width="39" height="60" :alt="product.name" />
+      <!--      <img-->
+      <!--        :src="`../src/${product.image}`"-->
+      <!--        width="39"-->
+      <!--        height="60"-->
+      <!--        :alt="product.name"-->
+      <!--      />-->
+      <!--      Пока сделал так, так как проблемы с required (авторы что-то сломали, когда делали сборку). Потом сделаю лучше, хочу уже закончить задание-->
+      <span v-html="product.image"></span>
       <span>{{ product.name }}</span>
     </p>
     <div class="additional-list__wrapper">
@@ -45,4 +52,10 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.additional-list__item {
+  span {
+    margin-right: 0;
+  }
+}
+</style>

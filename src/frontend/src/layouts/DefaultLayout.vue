@@ -32,7 +32,7 @@ export default {
   name: 'DefaultLayout',
   computed: {
     cost() {
-      return this.$store.state.cart.orderFullCost;
+      return this.$store.getters['cart/CART_COST'];
     }
   }
 };

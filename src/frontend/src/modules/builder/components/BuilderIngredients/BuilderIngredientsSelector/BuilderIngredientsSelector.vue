@@ -17,6 +17,8 @@
 
 <script>
 import BuilderIngredientsSelectorItem from '@/modules/builder/components/BuilderIngredients/BuilderIngredientsSelector/BuilderIngredientsSelectorItem';
+import { mapState } from 'vuex';
+import { eventBus } from '@/main';
 
 export default {
   name: 'BuilderIngredientsSelector',
@@ -25,6 +27,11 @@ export default {
     return {
       ingredients: {}
     };
+  },
+  mounted() {
+    eventBus.$on('addPizzaInCart', () => {
+      this.ingredients = {};
+    });
   },
   methods: {
     changeIngredients(value) {
@@ -36,9 +43,9 @@ export default {
     }
   },
   computed: {
-    ingredientsList() {
-      return this.$store.state.builder.ingredientsData;
-    }
+    ...mapState('builder', {
+      ingredientsList: 'ingredientsData'
+    })
   }
 };
 </script>

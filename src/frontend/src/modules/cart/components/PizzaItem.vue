@@ -26,14 +26,19 @@
       </div>
     </div>
 
-    <CounterWidget :count="1" />
+    <CounterWidget
+      @updateProductCounter="updateProductCounter"
+      :count="pizza.quantity"
+    />
 
     <div class="cart-list__price">
-      <b>782 ₽</b>
+      <b>{{ cost }}₽</b>
     </div>
 
     <div class="cart-list__button">
-      <button type="button" class="cart-list__edit">Изменить</button>
+      <button type="button" class="cart-list__edit" @click="changePizzaItem">
+        Изменить
+      </button>
     </div>
   </li>
 </template>
@@ -49,6 +54,18 @@ export default {
       required: true
     }
   },
+  methods: {
+    changePizzaItem() {
+      this.$store.dispatch('cart/CHANGE_PIZZA_ITEM', this.pizza);
+    },
+
+    updateProductCounter(value) {
+      this.$store.commit('cart/UPDATE_PIZZA_COUNTER', {
+        name: this.pizza.name,
+        value
+      });
+    }
+  },
   computed: {
     doughTypeToText() {
       return this.pizza.dough.type === 'light'
@@ -62,6 +79,10 @@ export default {
         arr.push(this.pizza.ingredients[key].name.toLowerCase());
       }
       return arr;
+    },
+
+    cost() {
+      return this.pizza.cost * this.pizza.quantity;
     }
   }
 };

@@ -5,8 +5,8 @@
       type="text"
       :placeholder="placeholder"
       :name="name"
-      v-model.trim="inputValue"
-      @input="input"
+      :value="value"
+      @input="input($event)"
     />
   </label>
 </template>
@@ -26,16 +26,16 @@ export default {
 
     name: {
       type: String
+    },
+
+    value: {
+      type: String,
+      default: ''
     }
   },
-  data() {
-    return {
-      inputValue: ''
-    };
-  },
   methods: {
-    input() {
-      this.$emit('input', this.inputValue);
+    input(event) {
+      this.$emit('input', event.target.value);
     }
   }
 };

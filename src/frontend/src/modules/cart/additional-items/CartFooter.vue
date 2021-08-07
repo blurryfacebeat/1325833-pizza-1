@@ -24,13 +24,17 @@ export default {
   name: 'CartFooter',
   components: { ButtonWidget },
   methods: {
+    resetCart() {
+      this.$store.commit('cart/RESET_CART', []);
+    },
     openThankfulModal() {
       this.$emit('openThankfulModal');
+      this.resetCart();
     }
   },
   computed: {
     cost() {
-      return this.$store.state.cart.orderFullCost;
+      return this.$store.getters['cart/CART_COST'];
     }
   }
 };

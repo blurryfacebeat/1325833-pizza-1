@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { eventBus } from '@/main';
 import ButtonWidget from '@/common/components/ButtonWidget';
 
 export default {
@@ -18,7 +19,17 @@ export default {
   components: { ButtonWidget },
   methods: {
     addPizzaToCart() {
-      this.$store.commit('cart/ADD_PIZZA_IN_CART', this.pizzaResult);
+      if (
+        this.$store.state.cart.pizzas.find(
+          (item) => item.name === this.pizzaResult.name
+        )
+      ) {
+        window.alert('Пицца с таким названием уже есть в корзине!');
+        return false;
+      } else {
+        this.$store.dispatch('builder/ADD_PIZZA_IN_CART', this.pizzaResult);
+        eventBus.$emit('addPizzaInCart');
+      }
     }
   },
   computed: {
