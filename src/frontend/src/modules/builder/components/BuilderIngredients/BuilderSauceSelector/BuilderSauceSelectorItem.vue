@@ -3,7 +3,7 @@
     labelClass="radio ingridients__input"
     :checked="checked"
     name="sauce"
-    @input="setPizzaSauce"
+    @input="setPizzaSauce(sauce)"
     :description="sauce.name"
   />
 </template>
@@ -26,14 +26,15 @@ export default {
   },
   mounted() {
     if (this.checked) {
-      this.setPizzaSauce();
+      this.setPizzaSauce(this.sauce);
     }
   },
   methods: {
-    setPizzaSauce() {
-      this.$emit('setPizzaSauce', this.sauce);
+    setPizzaSauce(value) {
+      this.$store.commit('builder/SET_PIZZA_SAUCE', value);
     }
-  }
+  },
+  computed: {}
 };
 </script>
 

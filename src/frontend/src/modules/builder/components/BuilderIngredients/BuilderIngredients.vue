@@ -3,15 +3,9 @@
     <div class="sheet">
       <h2 class="title title--small sheet__title">Выберите ингридиенты</h2>
 
-      <BuilderSauceSelector
-        :sauceData="sauceData"
-        @setPizzaSauce="setPizzaSauce"
-      />
+      <BuilderSauceSelector />
 
-      <BuilderIngredientsSelector
-        :ingredientsData="ingredientsData"
-        @changeIngredients="changeIngredients"
-      />
+      <BuilderIngredientsSelector />
     </div>
   </div>
 </template>
@@ -22,29 +16,7 @@ import BuilderIngredientsSelector from '@/modules/builder/components/BuilderIngr
 
 export default {
   name: 'BuilderIngredients',
-  components: { BuilderIngredientsSelector, BuilderSauceSelector },
-  props: {
-    sauceData: {
-      type: Array,
-      required: true,
-      validator: (v) => v.length
-    },
-
-    ingredientsData: {
-      type: Array,
-      required: true,
-      validator: (v) => v.length
-    }
-  },
-  methods: {
-    setPizzaSauce(value) {
-      this.$emit('setPizzaSauce', value);
-    },
-
-    changeIngredients(value) {
-      this.$emit('changeIngredients', value);
-    }
-  }
+  components: { BuilderIngredientsSelector, BuilderSauceSelector }
 };
 </script>
 

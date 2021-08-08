@@ -3,12 +3,12 @@
     <InputWidget
       placeholder="Введите название пиццы"
       name="pizza_name"
-      @input="setPizzaName"
+      v-model="pizzaName"
     />
 
-    <BuilderResultView :pizzaResult="pizzaResult" />
+    <BuilderResultView />
 
-    <BuilderResultPrice :pizzaResult="pizzaResult" @orderPizza="orderPizza" />
+    <BuilderResultPrice />
   </div>
 </template>
 
@@ -16,23 +16,29 @@
 import BuilderResultPrice from '@/modules/builder/components/BuilderResult/BuilderResultPrice';
 import BuilderResultView from '@/modules/builder/components/BuilderResult/BuilderResultView/BuilderResultView';
 import InputWidget from '@/common/components/InputWidget';
+import { eventBus } from '@/main';
 
 export default {
   name: 'BuilderResult',
   components: { InputWidget, BuilderResultView, BuilderResultPrice },
-  props: {
-    pizzaResult: {
-      type: Object,
-      required: true
-    }
+  data() {
+    return {
+      pizzaName: ''
+    };
+  },
+  mounted() {
+    eventBus.$on('addPizzaInCart', () => {
+      this.pizzaName = '';
+    });
   },
   methods: {
-    orderPizza() {
-      this.$emit('orderPizza');
-    },
-
     setPizzaName(value) {
-      this.$emit('setPizzaName', value);
+      this.$store.commit('builder/SET_PIZZA_NAME', value);
+    }
+  },
+  watch: {
+    pizzaName() {
+      this.setPizzaName(this.pizzaName);
     }
   }
 };

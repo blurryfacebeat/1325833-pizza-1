@@ -5,11 +5,10 @@
 
       <div class="sheet__content diameter">
         <BuilderSizeSelectorItem
-          v-for="(size, index) in sizesData"
+          v-for="(size, index) in sizesList"
           :key="size.name"
           :size="size"
           :checked="index === 1"
-          @setPizzaSize="setPizzaSize"
         />
       </div>
     </div>
@@ -21,16 +20,9 @@ import BuilderSizeSelectorItem from '@/modules/builder/components/BuilderSizeSel
 export default {
   name: 'BuilderSizeSelector',
   components: { BuilderSizeSelectorItem },
-  props: {
-    sizesData: {
-      type: Array,
-      required: true,
-      validator: (v) => v.length
-    }
-  },
-  methods: {
-    setPizzaSize(value) {
-      this.$emit('setPizzaSize', value);
+  computed: {
+    sizesList() {
+      return this.$store.state.builder.sizesData;
     }
   }
 };

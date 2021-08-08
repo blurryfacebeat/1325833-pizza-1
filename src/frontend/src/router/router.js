@@ -7,31 +7,33 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/Index.vue'),
+    component: () =>
+      import(/* webpackChunkName: 'IndexView' */ '@/views/Index.vue'),
     children: [
       {
         path: '/login',
         name: 'Login',
-        component: () => import('@/views/Login')
+        component: () => import(/* webpackChunkName: 'Login' */ '@/views/Login')
       }
     ]
   },
   {
     path: '/cart',
     name: 'Cart',
-    component: () => import('@/views/Cart'),
+    component: () => import(/* webpackChunkName: 'Cart' */ '@/views/Cart'),
     meta: { layout: 'MainLayout' }
   },
   {
     path: '/orders',
     name: 'Orders',
-    component: () => import('@/views/Orders'),
+    component: () => import(/* webpackChunkName: 'Orders' */ '@/views/Orders'),
     meta: { layout: 'MainLayout' }
   },
   {
     path: '/profile',
     name: 'Profile',
-    component: () => import('@/views/Profile'),
+    component: () =>
+      import(/* webpackChunkName: 'Profile' */ '@/views/Profile'),
     meta: { layout: 'MainLayout' }
   }
 ];

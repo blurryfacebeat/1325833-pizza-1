@@ -3,11 +3,10 @@
     <p>Основной соус:</p>
 
     <BuilderSauceSelectorItem
-      v-for="(sauce, index) in sauceData"
+      v-for="(sauce, index) in saucesList"
       :sauce="sauce"
       :key="sauce.name"
       :checked="index === 0"
-      @setPizzaSauce="setPizzaSauce"
     />
   </div>
 </template>
@@ -18,16 +17,9 @@ import BuilderSauceSelectorItem from '@/modules/builder/components/BuilderIngred
 export default {
   name: 'BuilderSauceSelector',
   components: { BuilderSauceSelectorItem },
-  props: {
-    sauceData: {
-      type: Array,
-      require: true,
-      validator: (v) => v.length
-    }
-  },
-  methods: {
-    setPizzaSauce(value) {
-      this.$emit('setPizzaSauce', value);
+  computed: {
+    saucesList() {
+      return this.$store.state.builder.sauceData;
     }
   }
 };

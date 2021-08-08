@@ -5,7 +5,7 @@
 
       <ul class="ingridients__list">
         <BuilderIngredientsSelectorItem
-          v-for="ingredient in ingredientsData"
+          v-for="ingredient in ingredientsList"
           :key="ingredient.name"
           :ingredient="ingredient"
           @changeIngredients="changeIngredients"
@@ -17,21 +17,21 @@
 
 <script>
 import BuilderIngredientsSelectorItem from '@/modules/builder/components/BuilderIngredients/BuilderIngredientsSelector/BuilderIngredientsSelectorItem';
+import { mapState } from 'vuex';
+import { eventBus } from '@/main';
 
 export default {
   name: 'BuilderIngredientsSelector',
   components: { BuilderIngredientsSelectorItem },
-  props: {
-    ingredientsData: {
-      type: Array,
-      required: true,
-      validator: (v) => v.length
-    }
-  },
   data() {
     return {
       ingredients: {}
     };
+  },
+  mounted() {
+    eventBus.$on('addPizzaInCart', () => {
+      this.ingredients = {};
+    });
   },
   methods: {
     changeIngredients(value) {
@@ -39,8 +39,13 @@ export default {
       if (this.ingredients[value.name].counter === 0) {
         this.$delete(this.ingredients, value.name);
       }
-      this.$emit('changeIngredients', this.ingredients);
+      this.$store.commit('builder/SET_PIZZA_INGREDIENTS', this.ingredients);
     }
+  },
+  computed: {
+    ...mapState('builder', {
+      ingredientsList: 'ingredientsData'
+    })
   }
 };
 </script>

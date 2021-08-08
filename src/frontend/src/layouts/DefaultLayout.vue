@@ -12,7 +12,7 @@
         </router-link>
       </div>
       <div class="header__cart">
-        <router-link to="/cart">0 ₽</router-link>
+        <router-link to="/cart">{{ cost }} ₽</router-link>
       </div>
       <div class="header__user">
         <router-link to="/login" class="header__login"
@@ -29,7 +29,12 @@
 
 <script>
 export default {
-  name: 'DefaultLayout'
+  name: 'DefaultLayout',
+  computed: {
+    cost() {
+      return this.$store.getters['cart/CART_COST'];
+    }
+  }
 };
 </script>
 

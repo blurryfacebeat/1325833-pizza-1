@@ -19,7 +19,8 @@
         type="text"
         name="counter"
         class="counter__input"
-        v-model="ingredientCounter"
+        :value="ingredientCounter"
+        @input="changeIngredients($event)"
       />
       <button
         type="button"
@@ -57,14 +58,48 @@ export default {
         this.addIngredient();
       }
     });
+    eventBus.$on('addPizzaInCart', () => {
+      this.ingredientCounter = 0;
+    });
   },
   methods: {
     removeIngredient() {
-      this.ingredientCounter--;
+      if (this.ingredientCounter < 0) {
+        this.ingredientCounter = 0;
+      } else {
+        this.ingredientCounter--;
+      }
+      this.emitEvent();
     },
 
     addIngredient() {
-      this.ingredientCounter++;
+      if (this.ingredientCounter > 3) {
+        this.ingredientCounter = 3;
+      } else {
+        this.ingredientCounter++;
+      }
+      this.emitEvent();
+    },
+
+    changeIngredients(event) {
+      this.ingredientCounter = event.target.value;
+      if (this.ingredientCounter < 0) {
+        this.ingredientCounter = 0;
+      } else if (this.ingredientCounter > 3) {
+        this.ingredientCounter = 3;
+      } else if (isNaN(this.ingredientCounter)) {
+        this.ingredientCounter = 0;
+      }
+      this.emitEvent();
+    },
+
+    emitEvent() {
+      this.$emit('changeIngredients', {
+        type: this.ingredient.type,
+        price: this.ingredient.price,
+        name: this.ingredient.name,
+        counter: this.ingredientCounter
+      });
     }
   },
   computed: {
@@ -78,25 +113,6 @@ export default {
 
     isDraggable() {
       return this.ingredientCounter < 3;
-    }
-  },
-  watch: {
-    ingredientCounter() {
-      if (this.ingredientCounter < 0) {
-        this.ingredientCounter = 0;
-      }
-      if (this.ingredientCounter > 3) {
-        this.ingredientCounter = 3;
-      }
-      if (isNaN(this.ingredientCounter)) {
-        this.ingredientCounter = 0;
-      }
-      this.$emit('changeIngredients', {
-        type: this.ingredient.type,
-        price: this.ingredient.price,
-        name: this.ingredient.name,
-        counter: this.ingredientCounter
-      });
     }
   }
 };
