@@ -19,7 +19,6 @@ import {
   SET_PIZZA_DOUGH,
   SET_PIZZA_COST,
   RESET_PIZZA_STATE,
-  ADD_PIZZA_IN_CART,
   CHANGE_PIZZA_ITEM
 } from '@/store/mutation-types';
 
@@ -58,30 +57,12 @@ export default {
       Vue.set(state.pizzaResult, 'cost', value);
     },
 
-    [ADD_PIZZA_IN_CART](state, value) {
-      this.state.cart.pizzas.push(value);
-    },
-
     [RESET_PIZZA_STATE](state, value) {
       state.pizzaResult = value;
     },
 
     [CHANGE_PIZZA_ITEM](state, value) {
       state.pizzaResult = value;
-    }
-  },
-
-  actions: {
-    // TODO: Спросить, почему хэшируется defaultPizzaState
-    [ADD_PIZZA_IN_CART]({ state, commit, getters }, value) {
-      commit(SET_PIZZA_COST, getters.pizzaCost);
-      commit(ADD_PIZZA_IN_CART, value);
-      commit(RESET_PIZZA_STATE, {
-        ...state.pizzaResult,
-        name: '',
-        ingredients: {},
-        quantity: 1
-      });
     }
   },
 

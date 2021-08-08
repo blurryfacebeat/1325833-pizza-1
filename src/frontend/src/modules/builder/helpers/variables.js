@@ -4,7 +4,6 @@ export const defaultPizzaState = () => {
     dough: {},
     size: {},
     sauce: {},
-    ingredients: {},
-    quantity: 1
+    ingredients: {}
   };
 };

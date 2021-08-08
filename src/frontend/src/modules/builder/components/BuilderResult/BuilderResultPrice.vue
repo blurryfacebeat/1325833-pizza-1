@@ -27,7 +27,7 @@ export default {
         window.alert('Пицца с таким названием уже есть в корзине!');
         return false;
       } else {
-        this.$store.dispatch('builder/ADD_PIZZA_IN_CART', this.pizzaResult);
+        this.$store.dispatch('cart/ADD_PIZZA_IN_CART');
         eventBus.$emit('addPizzaInCart');
       }
     }
